@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 if [ "$EUID" -ne 0 ]
     then echo ":: sjfetch installation script must be run as root."
     exit
