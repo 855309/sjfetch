@@ -11,7 +11,7 @@ echo ":: Downloading..."
 [ -d "/usr/share/sjfetch" ] && rm -rf "/usr/share/sjfetch"
 [ -L "/usr/bin/sjfetch" ] && rm -rf "/usr/bin/sjfetch"
 
-wget "" -O "/tmp/sjfetch.zip"
+wget "https://github.com/fikret0/sjfetch/releases/download/1.0/sjfetch.zip" -O "/tmp/sjfetch.zip"
 mkdir "/usr/share/sjfetch"
 
 echo ":: Installing..."
