@@ -18,8 +18,7 @@ curl -sL "https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh" 
 
 ## Screenshots
 
-![](assets/ss1.png)
-![](assets/ss2.png)
-![](assets/ss3.png)
+![](assets/screenshots/ss1.png)
+### [More Screenshots](assets/screenshots)
 
-**sj.**
+nOTE: **CONTRIBUTE MORE ASCII LOGOS!!1!!!!11!**
