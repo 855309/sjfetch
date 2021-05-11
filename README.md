@@ -13,7 +13,7 @@ sudo ./install.sh
 **or**
 
 ```
-curl -sL "https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh" | sudo sh
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh)"
 ```
 
 ## Screenshots
