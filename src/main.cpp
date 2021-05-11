@@ -9,6 +9,7 @@
 #include <sys/sysinfo.h>
 #include <sys/types.h>
 #include <cpuid.h>
+#include <experimental/filesystem>
 using namespace std;
 
 struct sysinfo memInfo;
@@ -168,7 +169,7 @@ string getappdir() {
     return appPath.substr(0, found);
 }
 
-string ver = "3.0-edge";
+string ver = "3.1-edge";
 
 int main(int argc, char** argv){
     if(argc > 1){
@@ -184,7 +185,7 @@ int main(int argc, char** argv){
         }
     }
 
-    if(filesystem::exists("/etc/os-release")){
+    if(experimental::filesystem::exists("/etc/os-release")){
         string apppath = getappdir() + "/";
 
         string name = "";
@@ -214,7 +215,7 @@ int main(int argc, char** argv){
         string logopath = "";
 
         if(argc == 1){
-            if(filesystem::exists(apppath + "ascii/" + logo + ".ascii")){
+            if(experimental::filesystem::exists(apppath + "ascii/" + logo + ".ascii")){
                 logopath = apppath + "ascii/" + logo + ".ascii";
             }
             else{
@@ -222,7 +223,7 @@ int main(int argc, char** argv){
             }
         }
         else{
-            if(filesystem::exists(apppath + "ascii/" + argv[1] + ".ascii")){
+            if(experimental::filesystem::exists(apppath + "ascii/" + argv[1] + ".ascii")){
                 logopath = apppath + "ascii/" + argv[1] + ".ascii";
             }
             else{
