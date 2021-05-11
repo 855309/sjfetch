@@ -1,3 +1,7 @@
+////////////////////////////////////////
+//     Copyright (c) 2021 fikret0     //
+////////////////////////////////////////
+
 #include <bits/stdc++.h>
 #include <unistd.h>
 #include <limits.h>
@@ -269,7 +273,8 @@ int main(int argc, char** argv){
         finallines[6] += makefield("Memory", to_string(((memInfo.totalram - memInfo.freeram) * memInfo.mem_unit) / (1024 * 1024)) + "MiB / " + to_string((memInfo.totalram * memInfo.mem_unit) / (1024 * 1024)) + "MiB", ": ");
         finallines[7] += makefield("Total Running Processes", to_string(memInfo.procs), ": ");
 
-        finallines[9] += makefield("Shell", defshell, ": ");
+        finallines[8] += makefield("Shell", defshell, ": ");
+        finallines[9] += makefield("Desktop session", getenv("DESKTOP_SESSION"), ": ");
         finallines[10] += makefield("CPU", regex_replace(cpbrand, regex(" CPU"), ""), ": ");
         finallines[11] += makefield("Clock speed", cpclocks, ": ");
         
