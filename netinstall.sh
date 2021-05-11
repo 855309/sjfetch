@@ -21,4 +21,6 @@ g++ "/tmp/sjfetch-git/src/main.cpp" -o "/tmp/sjfetch-git/build/sjfetch" -std=c++
 cp -r "/tmp/sjfetch-git/build/sjfetch" "/usr/share/sjfetch/sjfetch"
 cp -r "/tmp/sjfetch-git/ascii" "/usr/share/sjfetch"
 
+ln -s "/usr/share/sjfetch/sjfetch" "/usr/bin/sjfetch"
+
 echo ":: Done."
