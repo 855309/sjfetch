@@ -168,7 +168,22 @@ string getappdir() {
     return appPath.substr(0, found);
 }
 
+string ver = "3.0-edge";
+
 int main(int argc, char** argv){
+    if(argc > 1){
+        string option = argv[1];
+        if(option == "--update" || option == "-u"){
+            cout << colorize("::", "cyan", true) << colorize(" Updating", "white", true) << endl;
+            system("sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh)\"");
+            return 0;
+        }
+        else if(option == "-v" || option == "--version"){
+            cout << ver << endl;
+            return 0;
+        }
+    }
+
     if(filesystem::exists("/etc/os-release")){
         string apppath = getappdir() + "/";
 
