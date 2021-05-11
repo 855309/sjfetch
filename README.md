@@ -2,7 +2,7 @@
 A command-line tool to display colorful distro information.
 
 ## Install
-```
+```bash
 git clone https://github.com/fikret0/sjfetch.git
 cd sjfetch
 
@@ -12,8 +12,8 @@ sudo ./install.sh
 
 **or**
 
-```
-curl -sL "https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh" | sudo sh
+```bash
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh)"
 ```
 
 ## Screenshots
