@@ -10,6 +10,8 @@
 #include <sys/types.h>
 #include <cpuid.h>
 #include <experimental/filesystem>
+#include <curl/curl.h>
+#include <curl/easy.h>
 using namespace std;
 
 struct sysinfo sysInfo;
@@ -133,19 +135,19 @@ vector<string> readlines(string path)
     return lines;
 }
 
-string &ltrim(string &s) {
+string ltrim(string s) {
     s.erase(s.begin(), find_if(s.begin(), s.end(),
             not1(ptr_fun<int, int>(isspace))));
     return s;
 }
 
-string &rtrim(string &s) {
+string rtrim(string s) {
     s.erase(find_if(s.rbegin(), s.rend(),
             not1(ptr_fun<int, int>(isspace))).base(), s.end());
     return s;
 }
 
-string &trim(string &s) {
+string trim(string s) {
     return ltrim(rtrim(s));
 }
 
@@ -196,14 +198,46 @@ string getraminfo(){
     return lstr;
 }
 
-string ver = "3.2-edge";
+size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
+    string data((const char*) ptr, (size_t) size * nmemb);
+    *((stringstream*) stream) << data << endl;
+    return size * nmemb;
+}
+
+string downloadversion(){
+    void* curl;
+    curl = curl_easy_init();
+    curl_easy_setopt(curl, CURLOPT_URL, "");
+
+    curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+    curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
+    curl_easy_setopt(curl, CURLOPT_ACCEPT_ENCODING, "deflate");
+    std::stringstream out;
+    curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+    curl_easy_setopt(curl, CURLOPT_WRITEDATA, &out);
+    
+    CURLcode res = curl_easy_perform(curl);
+    if (res != CURLE_OK) {
+        cout << ":: Error while checking version: " << curl_easy_strerror(res) << endl;
+    }
+
+    return out.str();
+}
+
+string ver = "3.3-edge";
 
 int main(int argc, char** argv){
     if(argc > 1){
         string option = argv[1];
         if(option == "--update" || option == "-u"){
-            cout << colorize("::", "cyan", true) << colorize(" Updating", "white", true) << endl;
-            system("sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh)\"");
+            if(trim(downloadversion()) == ver){
+                cout << colorize("::", "cyan", true) << colorize(" sjfetch is up-to-date.", "white", true) << endl;
+            }
+            else{
+                cout << colorize("::", "cyan", true) << colorize(" Updating...", "white", true) << endl;
+                system("sudo sh -c \"$(curl -fsSL https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh)\"");
+            }
+
             return 0;
         }
         else if(option == "-v" || option == "--version"){

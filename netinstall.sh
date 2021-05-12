@@ -16,7 +16,7 @@ echo ":: Installing..."
 
 [ -d "/tmp/sjfetch-git/build/" ] || mkdir "/tmp/sjfetch-git/build"
 
-g++ "/tmp/sjfetch-git/src/main.cpp" -o "/tmp/sjfetch-git/build/sjfetch" -lstdc++fs # -std=c++17
+g++ "/tmp/sjfetch-git/src/main.cpp" -o "/tmp/sjfetch-git/build/sjfetch" -lstdc++fs -lcurl # -std=c++17
 
 cp -r "/tmp/sjfetch-git/build/sjfetch" "/usr/share/sjfetch/sjfetch"
 cp -r "/tmp/sjfetch-git/ascii" "/usr/share/sjfetch"
