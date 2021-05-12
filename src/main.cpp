@@ -207,7 +207,7 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, void *stream) {
 string downloadversion(){
     void* curl;
     curl = curl_easy_init();
-    curl_easy_setopt(curl, CURLOPT_URL, "");
+    curl_easy_setopt(curl, CURLOPT_URL, "https://raw.githubusercontent.com/fikret0/sjfetch/main/ver/version");
 
     curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
     curl_easy_setopt(curl, CURLOPT_NOSIGNAL, 1);
