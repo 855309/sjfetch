@@ -12,7 +12,7 @@
 #include <experimental/filesystem>
 using namespace std;
 
-struct sysinfo memInfo;
+struct sysinfo sysInfo;
 
 string clgreen = "\e[32m";
 string clred = "\e[31m";
@@ -169,7 +169,34 @@ string getappdir() {
     return appPath.substr(0, found);
 }
 
-string ver = "3.1-edge";
+string getraminfo(){
+    int mb = 1024;
+
+    string lstr = "";
+
+    int total;
+    int used;
+    int free;
+
+    for(string l : readlines("/proc/meminfo")){
+        vector<string> jgx = splitstr(l, ':');
+        if(trim(jgx[0]) == "MemTotal"){
+            total = stoi(splitstr(trim(jgx[1]), ' ')[0]) / mb;
+        }
+
+        if(trim(jgx[0]) == "MemAvailable"){
+            free = stoi(splitstr(trim(jgx[1]), ' ')[0]) / mb;
+        }
+    }
+
+    used = total - free;
+
+    lstr = to_string(used) + "MiB / " + to_string(total) + "MiB";
+
+    return lstr;
+}
+
+string ver = "3.2-edge";
 
 int main(int argc, char** argv){
     if(argc > 1){
@@ -276,7 +303,7 @@ int main(int argc, char** argv){
             }
         }
 
-        sysinfo(&memInfo);
+        sysinfo(&sysInfo);
 
         string cpuinfostr = getcpuinfo();
         string cpbrand = trim(splitstr(cpuinfostr, '@')[0]);
@@ -285,9 +312,9 @@ int main(int argc, char** argv){
         finallines[2] += makefield("OS", name, ": ");
         finallines[3] += makefield("Build ID", buildid, ": ");
 
-        finallines[5] += makefield("Uptime", to_string(memInfo.uptime / (60 * 60)) + " h", ": ");
-        finallines[6] += makefield("Memory", to_string(((memInfo.totalram - memInfo.freeram) * memInfo.mem_unit) / (1024 * 1024)) + "MiB / " + to_string((memInfo.totalram * memInfo.mem_unit) / (1024 * 1024)) + "MiB", ": ");
-        finallines[7] += makefield("Total Running Processes", to_string(memInfo.procs), ": ");
+        finallines[5] += makefield("Uptime", to_string(sysInfo.uptime / (60 * 60)) + " h", ": ");
+        finallines[6] += makefield("Memory", getraminfo(), ": ");
+        finallines[7] += makefield("Total Running Processes", to_string(sysInfo.procs), ": ");
 
         finallines[9] += makefield("Shell", defshell, ": ");
         finallines[10] += makefield("Desktop session", getenv("DESKTOP_SESSION"), ": ");
