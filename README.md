@@ -3,7 +3,7 @@ A command-line tool to display colorful distro information.
 
 ## Install
 ```bash
-git clone https://github.com/fikret0/sjfetch.git
+git clone https://github.com/855309/sjfetch.git
 cd sjfetch
 
 chmod +x install.sh
@@ -13,7 +13,7 @@ sudo ./install.sh
 **or**
 
 ```bash
-sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/fikret0/sjfetch/main/netinstall.sh)"
+sudo sh -c "$(curl -fsSL https://raw.githubusercontent.com/855309/sjfetch/main/netinstall.sh)"
 ```
 
 ## Screenshots
